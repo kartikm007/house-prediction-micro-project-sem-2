@@ -110,7 +110,7 @@
     <p class="text-xs font-medium text-amber-700 dark:text-lime-300 mt-1 uppercase">Department of Mathematics and Computing</p>
 </footer>
 
-<script>
+ <script>
     (function() {
         window.toggleDarkMode = function() {
             const html = document.documentElement;
@@ -133,18 +133,25 @@
             const city = document.getElementById('city').value;
             const location = document.getElementById('location').value;
             const sqft = parseFloat(document.getElementById('sqft').value) || 1200;
-            const bhk = parseFloat(document.getElementById('bhk').value) || 2;
-            const bath = parseFloat(document.getElementById('bath').value) || 1;
+            const bhk = parseFloat(document.getElementById('bhk').value) || 3;
+            const bath = parseFloat(document.getElementById('bath').value) || 2;
 
             try {
-                // Notice the new &location= parameter added here!
                 const response = await fetch(`/predict?city=${city}&location=${location}&sqft=${sqft}&bhk=${bhk}&bath=${bath}`);
-                const lakhs = await response.text(); 
+                const serverResponse = await response.text(); 
+                
+                // ✨ NEW ERROR CATCHER: Stops NaN from showing up!
+                if (isNaN(parseFloat(serverResponse)) || serverResponse.includes("Error")) {
+                    alert("C++ Server says: " + serverResponse);
+                    return; // Stop the script here
+                }
                 
                 const cityIcons = { Indore:'🏙️', Bhopal:'🌳', Jabalpur:'⛰️', Gwalior:'🏰' };
                 document.getElementById('city-name').innerHTML = `${cityIcons[city] || '📍'} Predicted Price for <span class="font-black">${location} Area</span> in <span class="font-black">${city}</span>`;
-                document.getElementById('price-display').innerHTML = `₹ ${parseFloat(lakhs).toFixed(2)} Lakhs`;
+                
+                document.getElementById('price-display').innerHTML = `₹ ${parseFloat(serverResponse).toFixed(2)} Lakhs`;
                 document.getElementById('result').classList.remove('hidden');
+                
             } catch (error) {
                 console.error("Error:", error);
                 alert("Cannot connect! Is your C++ server.exe running?");
