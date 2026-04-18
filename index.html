@@ -1,0 +1,190 @@
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🏠 House Price Predictor | Madhya Pradesh · VIBRANT</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap');
+        
+        * { transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease; }
+        .heading-font { font-family: 'Space Grotesk', sans-serif; }
+        body { font-family: 'Inter', sans-serif; }
+        
+        /* Vibrant gradients & glows */
+        .vibrant-hero {
+            background: radial-gradient(circle at 20% 30%, #de2553 0%, #dbb450 60%, #17b762 100%);
+        }
+        .dark .vibrant-hero {
+            background: radial-gradient(circle at 20% 30%, #2e1a47 0%, #1e2a5a 60%, #0f3d3e 100%);
+        }
+        
+        .glow-card {
+            box-shadow: 0 20px 40px -12px rgba(255, 140, 200, 0.25);
+        }
+        .dark .glow-card {
+            box-shadow: 0 20px 40px -12px rgba(0, 255, 200, 0.2);
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-amber-50 via-pink-50 to-cyan-50 dark:from-slate-950 dark:via-indigo-950 dark:to-emerald-950 min-h-screen flex flex-col">
+
+<nav class="sticky top-0 z-50 bg-white/80 dark:bg-slate-900/90 backdrop-blur-md border-b-4 border-pink-300 dark:border-emerald-600 shadow-md">
+    <div class="max-w-screen-2xl mx-auto px-6 md:px-8 py-4 flex items-center justify-between">
+        <div class="flex items-center gap-x-3">
+            <div class="w-12 h-12 bg-gradient-to-tr from-fuchsia-500 via-amber-400 to-cyan-400 rounded-2xl flex items-center justify-center text-3xl shadow-lg">🏠</div>
+            <div>
+                <h1 class="heading-font text-3xl font-bold tracking-tight bg-gradient-to-r from-fuchsia-600 to-amber-600 dark:from-cyan-300 dark:to-lime-300 bg-clip-text text-transparent">
+                    House<span class="text-fuchsia-500 dark:text-emerald-300">Vista</span>
+                </h1>
+                <p class="text-xs font-medium text-amber-600 dark:text-cyan-400 -mt-1">Madhya Pradesh</p>
+            </div>
+        </div>
+
+        <div class="flex items-center gap-x-5">
+            <div class="flex items-center gap-x-2 bg-fuchsia-100 dark:bg-fuchsia-900/50 text-fuchsia-700 dark:text-fuchsia-200 text-sm font-bold px-5 h-10 rounded-full border-2 border-fuchsia-300 dark:border-fuchsia-500">
+                <span class="relative flex h-3 w-3">
+                  <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75"></span>
+                  <span class="relative inline-flex rounded-full h-3 w-3 bg-amber-500"></span>
+                </span>
+                C++ API · LIVE
+            </div>
+
+            <button onclick="toggleDarkMode()" id="theme-toggle"
+                class="w-12 h-12 flex items-center justify-center text-3xl rounded-2xl transition-all duration-300 
+                       bg-gradient-to-br from-amber-200 to-pink-200 dark:from-indigo-800 dark:to-cyan-900 
+                       border-2 border-amber-400 dark:border-cyan-400 shadow-md hover:scale-105">
+                🌞
+            </button>
+        </div>
+    </div>
+</nav>
+
+<header class="vibrant-hero py-16 md:py-20 border-b-4 border-amber-300 dark:border-emerald-800">
+    <div class="max-w-screen-2xl mx-auto px-6 text-center">
+        <h1 class="heading-font text-5xl md:text-7xl font-extrabold tracking-tight leading-tight">
+            <span class="text-fuchsia-900 dark:text-cyan-100">Predict House Prices in</span><br>
+            <span class="bg-gradient-to-r from-fuchsia-600 via-amber-500 to-emerald-500 dark:from-cyan-300 dark:via-lime-300 dark:to-fuchsia-300 bg-clip-text text-transparent drop-shadow-2xl">
+                Madhya Pradesh
+            </span>
+        </h1>
+    </div>
+</header>
+
+<div class="flex-grow max-w-screen-2xl mx-auto px-6 py-16 w-full">
+    <div class="max-w-3xl mx-auto bg-white/70 dark:bg-slate-800/80 backdrop-blur-xl rounded-4xl shadow-2xl p-8 md:p-10 border-4 border-amber-300 dark:border-cyan-500 glow-card">
+        <form id="predict-form" class="space-y-8">
+            <div>
+                <label class="block text-base font-bold mb-2 text-fuchsia-700 dark:text-amber-200">📍 Select City</label>
+                <select id="city" class="w-full px-6 py-5 rounded-3xl border-2 border-amber-200 dark:border-cyan-700 bg-white dark:bg-slate-700 text-fuchsia-900 dark:text-white font-semibold focus:outline-none shadow-inner">
+                    <option value="Indore">🏙️ Indore</option>
+                    <option value="Bhopal">🌳 Bhopal</option>
+                    <option value="Jabalpur">⛰️ Jabalpur</option>
+                    <option value="Gwalior">🏰 Gwalior</option>
+                </select>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
+                <div>
+                    <label class="block text-sm font-bold mb-2 text-fuchsia-600 dark:text-amber-300">📐 Area (sq ft)</label>
+                    <input type="number" id="sqft" value="1200" class="w-full px-5 py-5 rounded-3xl border-2 border-amber-200 dark:border-cyan-700 bg-white dark:bg-slate-700 text-fuchsia-900 dark:text-white text-center font-bold text-lg">
+                </div>
+                <div>
+                    <label class="block text-sm font-bold mb-2 text-fuchsia-600 dark:text-amber-300">🛏️ BHK</label>
+                    <input type="number" id="bhk" value="3" class="w-full px-5 py-5 rounded-3xl border-2 border-amber-200 dark:border-cyan-700 bg-white dark:bg-slate-700 text-fuchsia-900 dark:text-white text-center font-bold text-lg">
+                </div>
+                <div>
+                    <label class="block text-sm font-bold mb-2 text-fuchsia-600 dark:text-amber-300">🛁 Bathrooms</label>
+                    <input type="number" id="bath" value="2" class="w-full px-5 py-5 rounded-3xl border-2 border-amber-200 dark:border-cyan-700 bg-white dark:bg-slate-700 text-fuchsia-900 dark:text-white text-center font-bold text-lg">
+                </div>
+            </div>
+
+            <button type="submit" class="w-full py-6 text-2xl font-black rounded-3xl bg-gradient-to-r from-fuchsia-600 via-amber-500 to-emerald-500 text-white shadow-2xl hover:scale-[1.02] transition-all border-2 border-white/40">
+                🔮 PREDICT NOW
+            </button>
+        </form>
+
+        <div id="result" class="hidden mt-10 pt-8 border-t-4 border-dashed border-amber-300 dark:border-cyan-600">
+            <p id="city-name" class="text-center text-xl font-bold text-fuchsia-700 dark:text-amber-200"></p>
+            <div id="price-display" class="text-center my-6 text-7xl md:text-8xl font-black tracking-tight bg-gradient-to-r from-fuchsia-600 to-amber-600 bg-clip-text text-transparent drop-shadow-2xl"></div>
+        </div>
+    </div>
+</div>
+
+<footer class="w-full py-8 mt-auto border-t-2 border-pink-200 dark:border-emerald-800 bg-white/40 dark:bg-slate-900/50 backdrop-blur-sm text-center">
+    <h3 class="text-lg md:text-xl font-bold text-fuchsia-800 dark:text-cyan-300 heading-font">
+        Developed by
+    </h3>
+    <p class="text-base md:text-lg font-semibold text-fuchsia-900 dark:text-cyan-100 mt-2">
+        Kartik Sharma <span class="font-normal text-sm text-fuchsia-700 dark:text-cyan-400 opacity-90">(BTMC25O1058)</span> 
+        <span class="mx-2 text-amber-500 font-bold">&amp;</span> 
+        Atharv Jain <span class="font-normal text-sm text-fuchsia-700 dark:text-cyan-400 opacity-90">(BTMC25O1031)</span>
+    </p>
+    <p class="text-sm font-medium text-amber-700 dark:text-lime-300 mt-1 uppercase tracking-wider">
+        Department of Mathematics and Computing
+    </p>
+</footer>
+
+<script>
+    (function() {
+        window.toggleDarkMode = function() {
+            const html = document.documentElement;
+            const toggleBtn = document.getElementById('theme-toggle');
+            if (html.classList.contains('dark')) {
+                html.classList.remove('dark');
+                toggleBtn.innerHTML = '🌞';
+                localStorage.setItem('theme', 'light');
+            } else {
+                html.classList.add('dark');
+                toggleBtn.innerHTML = '🌙';
+                localStorage.setItem('theme', 'dark');
+            }
+        };
+
+        function loadTheme() {
+    const savedTheme = localStorage.getItem('theme');
+
+    if (savedTheme === 'dark') {
+        document.documentElement.classList.add('dark');
+        document.getElementById('theme-toggle').innerHTML = '🌙';
+    } else {
+        document.documentElement.classList.remove('dark');
+        document.getElementById('theme-toggle').innerHTML = '🌞';
+    }
+}
+
+        async function predictPrice(e) {
+            e.preventDefault();
+            const city = document.getElementById('city').value;
+            const sqft = parseFloat(document.getElementById('sqft').value) || 1200;
+            const bhk = parseFloat(document.getElementById('bhk').value) || 2;
+            const bath = parseFloat(document.getElementById('bath').value) || 1;
+
+            try {
+                // Talks to your C++ Server
+                const response = await fetch(`/predict?city=${city}&sqft=${sqft}&bhk=${bhk}&bath=${bath}`);
+                const lakhs = await response.text(); 
+                
+                const cityDisplay = document.getElementById('city-name');
+                const cityIcons = { Indore:'🏙️', Bhopal:'🌳', Jabalpur:'⛰️', Gwalior:'🏰' };
+                cityDisplay.innerHTML = `${cityIcons[city] || '📍'} Predicted Price in <span class="font-black">${city}</span>`;
+                
+                const priceEl = document.getElementById('price-display');
+                priceEl.innerHTML = `₹ ${parseFloat(lakhs).toFixed(2)} Lakhs`;
+                
+                document.getElementById('result').classList.remove('hidden');
+            } catch (error) {
+                console.error("Error:", error);
+                alert("Cannot connect! Is your C++ server.exe running?");
+            }
+        }
+
+        window.onload = function() {
+            loadTheme();
+            document.getElementById('predict-form').addEventListener('submit', predictPrice);
+        };
+    })();
+</script>
+</body>
+</html>
