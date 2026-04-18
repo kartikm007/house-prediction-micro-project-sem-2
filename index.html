@@ -4,7 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>🏠 House Price Predictor | Madhya Pradesh</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+   <script src="https://cdn.tailwindcss.com"></script>
+    
+    <script>
+        tailwind.config = {
+            darkMode: 'class'
+        }
+    </script>
+    ```
+
+Save the file and refresh your page (`Ctrl + Shift + R`). 
+
+Now when you click the 🌞 / 🌙 button, it will instantly force the website into those deep, vibrant dark mode colors (the indigos, emeralds, and slates) exactly as intended!
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap');
         
@@ -137,10 +148,17 @@
             const bath = parseFloat(document.getElementById('bath').value) || 2;
 
             try {
-                const response = await fetch(`/predict?city=${city}&location=${location}&sqft=${sqft}&bhk=${bhk}&bath=${bath}`);
-                const serverResponse = await response.text(); 
+                // 1. Fetch with the ngrok security bypass
+                const response = await fetch(`/predict?city=${city}&location=${location}&sqft=${sqft}&bhk=${bhk}&bath=${bath}`, {
+                    headers: {
+                        "ngrok-skip-browser-warning": "true"
+                    }
+                });
                 
-                // ✨ NEW ERROR CATCHER: Stops NaN from showing up!
+                // 2. THIS WAS MISSING! Extract the text from the C++ server
+                const serverResponse = await response.text(); 
+
+                // 3. ✨ NEW ERROR CATCHER: Stops NaN from showing up!
                 if (isNaN(parseFloat(serverResponse)) || serverResponse.includes("Error")) {
                     alert("C++ Server says: " + serverResponse);
                     return; // Stop the script here
