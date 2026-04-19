@@ -56,7 +56,7 @@ int main() {
         std::string location = req.get_param_value("location");
         
         // Prevent crashes if inputs are missing
-        if (city.empty() || location.empty() || !req.has_param("sqft")) {
+       if (city.empty() || location.empty() || !req.has_param("sqft")) {
             res.set_content("Error: Missing parameters", "text/plain");
             return;
         }
@@ -67,10 +67,12 @@ int main() {
 
         // Calculate and format price
         double finalPrice = predictor.calculatePrice(city, location, sqft, bhk, bath);
-        double priceInLakhs = finalPrice / 100000.0;
+        
+        // Divide by 1 Crore (1,00,00,000) instead of 1 
+        double priceInCrores = finalPrice / 10000000.0; 
         
         // Send response back to the browser
-        res.set_content(std::to_string(priceInLakhs), "text/plain");
+        res.set_content(std::to_string(priceInCrores), "text/plain");
     });
 
     std::cout << "========================================" << std::endl;
