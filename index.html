@@ -118,7 +118,7 @@
     <p class="text-xs font-medium text-amber-700 dark:text-lime-300 mt-1 uppercase">Department of Mathematics and Computing</p>
 </footer>
 
- <script>
+  <script>
     (function() {
         window.toggleDarkMode = function() {
             const html = document.documentElement;
@@ -152,18 +152,21 @@
                     }
                 });
                 
-                // 2. THIS WAS MISSING! Extract the text from the C++ server
+                // 2. Extract the text from the C++ server
                 const serverResponse = await response.text(); 
 
-                // 3. ✨ NEW ERROR CATCHER: Stops NaN from showing up!
+                // 3. Error catcher
                 if (isNaN(parseFloat(serverResponse)) || serverResponse.includes("Error")) {
                     alert("C++ Server says: " + serverResponse);
-                    return; // Stop the script here
+                    return; 
                 }
                 
                 const cityIcons = { Indore:'🏙️', Bhopal:'🌳', Jabalpur:'⛰️', Gwalior:'🏰' };
                 document.getElementById('city-name').innerHTML = `${cityIcons[city] || '📍'} Predicted Price for <span class="font-black">${location} Area</span> in <span class="font-black">${city}</span>`;
                 document.getElementById('price-display').innerHTML = `₹ ${parseFloat(serverResponse).toFixed(2)} Crores`;
+                
+                // ✨ THIS WAS MISSING! This makes the result box visible:
+                document.getElementById('result').classList.remove('hidden');
                 
             } catch (error) {
                 console.error("Error:", error);
