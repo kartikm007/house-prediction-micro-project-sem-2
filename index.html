@@ -163,9 +163,7 @@
                 
                 const cityIcons = { Indore:'🏙️', Bhopal:'🌳', Jabalpur:'⛰️', Gwalior:'🏰' };
                 document.getElementById('city-name').innerHTML = `${cityIcons[city] || '📍'} Predicted Price for <span class="font-black">${location} Area</span> in <span class="font-black">${city}</span>`;
-                
-                document.getElementById('price-display').innerHTML = `₹ ${parseFloat(serverResponse).toFixed(2)} Lakhs`;
-                document.getElementById('result').classList.remove('hidden');
+                document.getElementById('price-display').innerHTML = `₹ ${parseFloat(serverResponse).toFixed(2)} Crores`;
                 
             } catch (error) {
                 console.error("Error:", error);
